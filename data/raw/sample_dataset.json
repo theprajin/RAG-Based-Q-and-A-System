@@ -1,0 +1,44 @@
+{
+  "faqs": [
+    {
+      "question": "What is the company's policy on remote work?",
+      "answer": "Employees are allowed to work remotely up to two days a week, subject to manager approval."
+    },
+    {
+      "question": "How do I request vacation days?",
+      "answer": "To request vacation days, please fill out the vacation request form and submit it to your manager at least two weeks in advance."
+    },
+    {
+      "question": "What benefits does the company offer?",
+      "answer": "The company offers health insurance, retirement plans, and paid time off, among other benefits."
+    },
+    {
+      "question": "Is there a dress code?",
+      "answer": "The company has a business casual dress code. Employees are expected to dress appropriately for the workplace."
+    },
+    {
+      "question": "How can I access my pay stubs?",
+      "answer": "Pay stubs can be accessed through the employee portal under the payroll section."
+    },
+    {
+      "question": "What is the procedure for reporting harassment?",
+      "answer": "Employees should report any incidents of harassment to HR immediately, either in person or via email."
+    },
+    {
+      "question": "Are there opportunities for professional development?",
+      "answer": "Yes, the company offers various training programs and workshops for professional development."
+    },
+    {
+      "question": "What is the policy on overtime?",
+      "answer": "Overtime must be approved by a manager in advance and is compensated at 1.5 times the regular hourly rate."
+    },
+    {
+      "question": "How do I change my benefits enrollment?",
+      "answer": "To change your benefits enrollment, please contact HR during the open enrollment period."
+    },
+    {
+      "question": "What should I do if I have a conflict with a coworker?",
+      "answer": "If you have a conflict with a coworker, try to resolve it directly with them. If that is not possible, seek assistance from your manager or HR."
+    }
+  ]
+}
