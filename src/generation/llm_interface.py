@@ -1,6 +1,11 @@
-from langchain_huggingface import HuggingFaceEndpoint
+import os
+from langchain_huggingface import HuggingFaceEndpoint, ChatHuggingFace
 from langchain.chains import RetrievalQA
 from langchain_core.prompts import PromptTemplate
+from dotenv import load_dotenv
+
+load_dotenv()
+hf_token = os.getenv("HUGGINGFACEHUB_ACCESS_TOKEN")
 
 
 class LangChainLLMInterface:
@@ -11,17 +16,19 @@ class LangChainLLMInterface:
         api_key=None,
     ):
         if model_type == "huggingface":
-            self.llm = HuggingFaceEndpoint(
+            llm_endpoint = HuggingFaceEndpoint(
                 repo_id=model_name,
-                temperature=0.3,
                 task="text-generation",
-                huggingfacehub_api_token=api_key,
-                max_new_tokens=512,
+                huggingfacehub_api_token=api_key or hf_token,
+                temperature=0.3,
+                max_new_tokens=250,
                 do_sample=True,
                 top_p=0.95,
                 top_k=50,
                 repetition_penalty=1.2,
             )
+            
+            self.llm = ChatHuggingFace(llm=llm_endpoint)
         else:
             raise ValueError(f"Unsupported model type: {model_type}")
 
