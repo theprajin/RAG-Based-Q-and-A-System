@@ -85,7 +85,6 @@ def initialize_rag_system():
 
             retriever = LangChainRetriever(vector_store)
 
-            api_key_value = API_KEY if API_KEY != "your_api_key_here" else None
             llm_interface = LangChainLLMInterface(
                 model_type="huggingface",
                 model_name=(
@@ -93,7 +92,6 @@ def initialize_rag_system():
                     if MODEL_NAME != "huggingface_model_name"
                     else "mistralai/Mistral-7B-Instruct-v0.3"
                 ),
-                api_key=api_key_value,
             )
 
             qa_chain = llm_interface.create_qa_chain(vector_store)
