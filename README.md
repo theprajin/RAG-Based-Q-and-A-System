@@ -47,6 +47,8 @@ Create a `.env` file in the root directory and add the following variable:
 HUGGINGFACEHUB_ACCESS_TOKEN=your_access_token_here
 ```
 
+Note: For restricted(gated) models you have to request access on HuggingFace
+
 Make sure to replace `your_access_token_here` with your actual Hugging Face Hub access token.
 
 The application will automatically load this token from the `.env` file when required.
