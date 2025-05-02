@@ -143,6 +143,8 @@ if st.button("Get Answer", type="primary"):
 
                 answer = result["result"]
                 source_docs = result["source_documents"]
+                no_relevant_chunks = result.get("no_relevant_chunks", False)
+                suggest_rephrase = result.get("suggest_rephrase", False)
 
                 end_time = time.time()
                 response_time = round(end_time - start_time, 2)
@@ -154,11 +156,20 @@ if st.button("Get Answer", type="primary"):
                                </div>""",
                     unsafe_allow_html=True,
                 )
+                
+                # Display helper messages based on the response type
+                if no_relevant_chunks:
+                    st.warning("❓ I couldn't find information about this topic in our HR policy database.")
+                
+                if suggest_rephrase:
+                    st.info("💡 Try rephrasing your question to get a more specific answer.")
 
-                with st.expander("View sources"):
-                    for i, doc in enumerate(source_docs):
-                        st.markdown(f"**Source {i+1}:**")
-                        st.markdown(f"```\n{doc.page_content}\n```")
+                # Only show sources if there are relevant chunks
+                if not no_relevant_chunks:
+                    with st.expander("View sources"):
+                        for i, doc in enumerate(source_docs):
+                            st.markdown(f"**Source {i+1}:**")
+                            st.markdown(f"```\n{doc.page_content}\n```")
 
                 st.caption(f"Response generated in {response_time} seconds")
 

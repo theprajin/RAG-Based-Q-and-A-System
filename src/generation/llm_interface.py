@@ -64,9 +64,46 @@ class LangChainLLMInterface:
         )
 
         return qa_chain
+        
+    def _is_dont_know_response(self, response: str) -> bool:
+        """Check if the response is an 'I don't know' type response."""
+        dont_know_phrases = [
+            "i don't know",
+            "i do not know",
+            "don't have information",
+            "do not have information",
+            "no information",
+            "cannot find",
+            "couldn't find",
+            "unable to find",
+            "not in the knowledge base",
+            "not in my knowledge base",
+            "i don't have",
+            "i do not have",
+            "no context",
+            "insufficient information",
+            "not enough information"
+        ]
+        
+        response_lower = response.lower()
+        for phrase in dont_know_phrases:
+            if phrase in response_lower:
+                return True
+        return False
+    
+    def _has_relevant_chunks(self, source_documents) -> bool:
+        """Check if there are any relevant chunks in the retrieved documents."""
+        return len(source_documents) > 0
 
     def generate_answer(self, qa_chain, query):
         result = qa_chain({"query": query})
+        source_docs = result.get("source_documents", [])
+        
+        # Check if there are relevant chunks
+        if not self._has_relevant_chunks(source_docs):
+            result["result"] = "I couldn't find information about this."
+            result["no_relevant_chunks"] = True
+            return result
 
         if result["result"] and isinstance(result["result"], str):
             lines = result["result"].split("\n")
@@ -75,6 +112,10 @@ class LangChainLLMInterface:
             ]
             result["result"] = "\n".join(filtered_lines)
 
+            # Check for "I don't know" type responses
+            if self._is_dont_know_response(result["result"]):
+                result["suggest_rephrase"] = True
+            
             if not result["result"].strip():
                 result["result"] = (
                     "Based on the company HR policies, I can provide you with the following information: "
