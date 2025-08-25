@@ -59,8 +59,7 @@ The application will automatically load this token from the `.env` file when req
 2. Run the Streamlit application:
 
 ```bash
-cd src
-streamlit run main.py
+streamlit run src/main.py
 ```
 
 3. Open your web browser and go to http://localhost:8501
